@@ -7,6 +7,7 @@
 package simplefilepath
 
 import (
+	"os"
 	"runtime"
 	"time"
 )
@@ -23,4 +24,13 @@ func init() {
 func NowDayTimePath() (path string) {
 	path = time.Now().Format(pathTimeLayout)
 	return
+}
+
+// PathIsExist 判断 文件或者目录是存在
+func PathIsExist(path string) (ok bool) {
+	var (
+		err error
+	)
+	_, err = os.Stat(path)
+	return err == nil || os.IsExist(err)
 }
