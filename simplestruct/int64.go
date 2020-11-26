@@ -4,7 +4,7 @@
 @Description: 一些基本的数据类型封装
 */
 
-package simplestructure
+package simplestruct
 
 import (
 	"encoding/json"

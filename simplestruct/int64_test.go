@@ -4,7 +4,7 @@
 @Description:
 */
 
-package simplestructure
+package simplestruct
 
 import (
 	"encoding/json"
