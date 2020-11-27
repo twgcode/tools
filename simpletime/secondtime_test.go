@@ -24,8 +24,8 @@ func TestTime_IsSet(t *testing.T) {
 		want  bool
 	}
 	tests := map[string]test{
-		"nil_time": {SecondTime{time.Time{}}, false},
-		"now":      {SecondTime{time.Now()}, true},
+		"nil_time": {SecondTime(time.Time{}), false},
+		"now":      {SecondTime(time.Now()), true},
 	}
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
@@ -45,9 +45,9 @@ func TestTime_MarshalJSON(t *testing.T) {
 	location, _ := time.LoadLocation("PRC")
 
 	tests := map[string]test{
-		"nil_time": {SecondTime{time.Time{}}, "null"},
-		"CST":      {SecondTime{time.Date(2020, 11, 25, 23, 24, 53, 0, location)}, `"2020-11-25 23:24:53 CST"`},
-		"UTC":      {SecondTime{time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)}, `"2020-11-25 23:24:53 UTC"`},
+		"nil_time": {SecondTime(time.Time{}), "null"},
+		"CST":      {SecondTime(time.Date(2020, 11, 25, 23, 24, 53, 0, location)), `"2020-11-25 23:24:53 CST"`},
+		"UTC":      {SecondTime(time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)), `"2020-11-25 23:24:53 UTC"`},
 	}
 
 	for name, tc := range tests {
@@ -77,7 +77,7 @@ func TestTime_MarshalJSONStruct(t *testing.T) {
 			Name:       "go",
 		}, `{"create_time":null,"name":"go"}`},
 		"utc": {
-			Post{SecondTime{time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)}, "utc"},
+			Post{SecondTime(time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)), "utc"},
 			`{"create_time":"2020-11-25 23:24:53 UTC","name":"utc"}`,
 		},
 	}
@@ -103,7 +103,7 @@ func TestTime_UnmarshalJSON(t *testing.T) {
 	}
 	tests := map[string]test{
 		"nil_time": {"null", SecondTime{}},
-		"uct":      {`"2020-11-25 23:24:53 UTC"`, SecondTime{time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)}},
+		"uct":      {`"2020-11-25 23:24:53 UTC"`, SecondTime(time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC))},
 	}
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
@@ -129,7 +129,7 @@ func TestTime_UnmarshalJSON2Struct(t *testing.T) {
 		"nil_time": {`{"create_time":null,"name":"go"}`,
 			Post{CreateTime: SecondTime{}, Name: "go"}},
 		"utc": {`{"create_time":"2020-11-25 23:24:53 UTC","name":"utc"}`,
-			Post{SecondTime{time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)}, "utc"},
+			Post{SecondTime(time.Date(2020, 11, 25, 23, 24, 53, 0, time.UTC)), "utc"},
 		},
 	}
 	for name, tc := range tests {
