@@ -7,6 +7,7 @@
 package simpletime
 
 import (
+	"database/sql/driver"
 	"fmt"
 	"strings"
 	"time"
@@ -46,4 +47,9 @@ func (s *SecondTime) MarshalJSON() (data []byte, err error) {
 // IsSet 判断Time是否为正确设置
 func (s *SecondTime) IsSet() bool {
 	return !time.Time(*s).IsZero()
+}
+
+//  Value  满足 database/sql 库要求
+func (s SecondTime) Value() (driver.Value, error) {
+	return time.Time(s), nil
 }
