@@ -196,3 +196,28 @@ func TestToInt64Slice(t *testing.T) {
 		})
 	}
 }
+
+func TestAppendIntSlice(t *testing.T) {
+	type test struct { // 定义test结构体
+		want   []int64
+		input1 []int64
+		input2 []int64
+	}
+	tests := map[string]test{
+		"first_nil":   {want: []int64{1, 2, 3}, input1: nil, input2: []int64{1, 2, 3}},
+		"second_nil":  {want: []int64{1, 2, 3}, input1: []int64{1, 2, 3}, input2: nil},
+		"all_nil":     {want: nil, input1: nil, input2: nil},
+		"empty_nil":   {want: []int64{}, input1: []int64{}, input2: nil},
+		"all_empty":   {want: []int64{}, input1: []int64{}, input2: []int64{}},
+		"short_empty": {want: []int64{1, 2, 3}, input1: []int64{1, 2, 3}, input2: []int64{}},
+		"all_short":   {want: []int64{1, 2, 3, 1, 2, 3, 4}, input1: []int64{1, 2, 3}, input2: []int64{1, 2, 3, 4}},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := AppendIntSlice(tc.input1, tc.input2)
+			if !reflect.DeepEqual(got, tc.want) {
+				t.Errorf(" excepted:%#v, got:%#v", tc.want, got)
+			}
+		})
+	}
+}

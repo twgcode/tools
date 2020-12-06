@@ -82,3 +82,24 @@ func ToInt64Slice(int64Slice []int64) (slice []Int64) {
 	return
 
 }
+
+// IntContains 判断 item 是否存在 切片中
+func IntContains(slice []int64, val int64) (ok bool) {
+	for _, v := range slice {
+		if v == val {
+			return true
+		}
+	}
+	return false
+}
+
+// AppendIntSlice 合并(追加方式)2个切片
+func AppendIntSlice(s1, s2 []int64) (slice []int64) {
+	if s1 == nil && s2 == nil {
+		return nil
+	}
+	slice = make([]int64, 0, len(s1)+len(s2))
+	slice = append(slice, s1...)
+	slice = append(slice, s2...)
+	return
+}
