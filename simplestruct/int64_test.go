@@ -214,7 +214,7 @@ func TestAppendIntSlice(t *testing.T) {
 	}
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			got := AppendIntSlice(tc.input1, tc.input2)
+			got := AppendBuiltinInt64Slice(tc.input1, tc.input2)
 			if !reflect.DeepEqual(got, tc.want) {
 				t.Errorf(" excepted:%#v, got:%#v", tc.want, got)
 			}
