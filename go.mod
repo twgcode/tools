@@ -1,6 +1,6 @@
 module github.com/twgcode/tools
 
-go 1.13
+go 1.16
 
 require (
 	github.com/go-playground/validator/v10 v10.4.1
