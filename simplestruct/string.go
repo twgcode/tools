@@ -6,8 +6,8 @@
 
 package simplestruct
 
-// StringContains 判断 item是发在指定的切片中
-func StringContains(slice []string, val string) (ok bool) {
+// BuiltinStringSliceContains 判断 item是发在指定的切片中
+func BuiltinStringSliceContains(slice []string, val string) (ok bool) {
 	for _, v := range slice {
 		if v == val {
 			return true
@@ -16,16 +16,30 @@ func StringContains(slice []string, val string) (ok bool) {
 	return false
 }
 
-// StringRemoveDuplicateValues 对切片进行去除
-func StringRemoveDuplicateValues(strSlice []string) []string {
+// BuiltinStringSliceRemoveDuplicateValues 对切片进行去重
+func BuiltinStringSliceRemoveDuplicateValues(strSlice []string) []string {
 	if len(strSlice) == 0 {
 		return strSlice
 	}
 	list := make([]string, 0, cap(strSlice))
 	for _, item := range strSlice {
-		if !StringContains(list, item) {
+		if !BuiltinStringSliceContains(list, item) {
 			list = append(list, item)
 		}
 	}
 	return list
+}
+
+// BuiltinStringSliceRemoveElement 从切片中移除遇到第一个指定元素
+func BuiltinStringSliceRemoveElement(source []string, element string) ([]string, bool) {
+	if len(source) == 0 {
+		return source, false
+	}
+	for i, v := range source {
+		if v == element {
+			source = append(source[:i], source[i+1:]...)
+			return source, true
+		}
+	}
+	return source, false
 }
