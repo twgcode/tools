@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-// Int64Str
+// Int64
 // 实现主要来源于 https://stackoverflow.com/questions/49415573/golang-json-how-do-i-unmarshal-array-of-strings-into-int64?rq=1
 type Int64 int64
 
@@ -82,7 +82,7 @@ func ToInt64Slice(int64Slice []int64) (slice []Int64) {
 	return
 }
 
-// IntContains 判断 item 是否存在 切片中
+// IntContains 判断 item 是否存在 切片中; 新版不建议使用,废弃状态
 func IntContains(slice []int64, val int64) (ok bool) {
 	for _, v := range slice {
 		if v == val {
@@ -112,4 +112,42 @@ func AppendInt64Slice(s1, s2 []Int64) (slice []Int64) {
 	slice = append(slice, s1...)
 	slice = append(slice, s2...)
 	return
+}
+
+// BuiltinInt64SliceContains 判断 item是发在指定的切片中
+func BuiltinInt64SliceContains(slice []int64, val int64) (ok bool) {
+	for _, v := range slice {
+		if v == val {
+			return true
+		}
+	}
+	return false
+}
+
+// BuiltinInt64SliceRemoveDuplicateValues 对切片进行去重
+func BuiltinInt64SliceRemoveDuplicateValues(slice []int64) []int64 {
+	if len(slice) == 0 {
+		return slice
+	}
+	list := make([]int64, 0, cap(slice))
+	for _, item := range slice {
+		if !BuiltinInt64SliceContains(list, item) {
+			list = append(list, item)
+		}
+	}
+	return list
+}
+
+// BuiltinInt64SliceRemoveElement 从切片中移除遇到第一个指定元素
+func BuiltinInt64SliceRemoveElement(source []int64, element int64) ([]int64, bool) {
+	if len(source) == 0 {
+		return source, false
+	}
+	for i, v := range source {
+		if v == element {
+			source = append(source[:i], source[i+1:]...)
+			return source, true
+		}
+	}
+	return source, false
 }

@@ -81,7 +81,7 @@ func ToUint64Slice(uint64Slice []uint64) (slice []Uint64) {
 	return
 }
 
-//  Uint64Contains 判断 item是发在指定的切片中
+// Uint64Contains 判断 item是发在指定的切片中; 新版不建议使用,废弃状态
 func Uint64Contains(slice []uint64, val uint64) (ok bool) {
 	for _, v := range slice {
 		if v == val {
@@ -111,4 +111,42 @@ func AppendUint64Slice(s1, s2 []Uint64) (slice []Uint64) {
 	slice = append(slice, s1...)
 	slice = append(slice, s2...)
 	return
+}
+
+// BuiltinUint64SliceContains 判断 item是发在指定的切片中
+func BuiltinUint64SliceContains(slice []uint64, val uint64) (ok bool) {
+	for _, v := range slice {
+		if v == val {
+			return true
+		}
+	}
+	return false
+}
+
+// BuiltinUint64SliceRemoveDuplicateValues 对切片进行去重
+func BuiltinUint64SliceRemoveDuplicateValues(slice []uint64) []uint64 {
+	if len(slice) == 0 {
+		return slice
+	}
+	list := make([]uint64, 0, cap(slice))
+	for _, item := range slice {
+		if !BuiltinUint64SliceContains(list, item) {
+			list = append(list, item)
+		}
+	}
+	return list
+}
+
+// BuiltinUint64SliceRemoveElement 从切片中移除遇到第一个指定元素
+func BuiltinUint64SliceRemoveElement(source []uint64, element uint64) ([]uint64, bool) {
+	if len(source) == 0 {
+		return source, false
+	}
+	for i, v := range source {
+		if v == element {
+			source = append(source[:i], source[i+1:]...)
+			return source, true
+		}
+	}
+	return source, false
 }

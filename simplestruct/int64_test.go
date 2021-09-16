@@ -221,3 +221,26 @@ func TestAppendIntSlice(t *testing.T) {
 		})
 	}
 }
+
+func TestBuiltinInt64SliceRemoveDuplicateValues(t *testing.T) {
+	type test struct {
+		input []int64
+		want  []int64
+	}
+	tests := map[string]test{
+		"nil":              {nil, nil},
+		"empty":            {[]int64{}, []int64{}},
+		"simple":           {[]int64{1, 2, 3, 4}, []int64{1, 2, 3, 4}},
+		"not_exist_simple": {[]int64{1, 2, 3, 4, 4}, []int64{1, 2, 3, 4}},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := BuiltinInt64SliceRemoveDuplicateValues(tc.input)
+
+			if !reflect.DeepEqual(got, tc.want) {
+				t.Errorf("excepted slice:%#v, got slice:%#v", tc.want, got)
+				return
+			}
+		})
+	}
+}
