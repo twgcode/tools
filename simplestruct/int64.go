@@ -151,3 +151,35 @@ func BuiltinInt64SliceRemoveElement(source []int64, element int64) ([]int64, boo
 	}
 	return source, false
 }
+
+func MaxBuiltinInt64(l ...int64) int64 {
+	if len(l) == 0 {
+		return 0
+	}
+	if len(l) == 1 {
+		return l[0]
+	}
+	result := l[0]
+	for _, v := range l {
+		if v > result {
+			result = v
+		}
+	}
+	return result
+}
+
+func MinBuiltinInt64(l ...int64) int64 {
+	if len(l) == 0 {
+		return 0
+	}
+	if len(l) == 1 {
+		return l[0]
+	}
+	result := l[0]
+	for _, v := range l {
+		if v < result {
+			result = v
+		}
+	}
+	return result
+}

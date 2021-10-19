@@ -43,3 +43,35 @@ func BuiltinUint8SliceRemoveElement(source []uint8, element uint8) ([]uint8, boo
 	}
 	return source, false
 }
+
+func MaxBuiltinUint8(l ...int8) int8 {
+	if len(l) == 0 {
+		return 0
+	}
+	if len(l) == 1 {
+		return l[0]
+	}
+	result := l[0]
+	for _, v := range l {
+		if v > result {
+			result = v
+		}
+	}
+	return result
+}
+
+func MinBuiltinUint8(l ...int8) int8 {
+	if len(l) == 0 {
+		return 0
+	}
+	if len(l) == 1 {
+		return l[0]
+	}
+	result := l[0]
+	for _, v := range l {
+		if v < result {
+			result = v
+		}
+	}
+	return result
+}

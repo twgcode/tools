@@ -244,3 +244,47 @@ func TestBuiltinInt64SliceRemoveDuplicateValues(t *testing.T) {
 		})
 	}
 }
+
+func TestMaxBuiltinInt64(t *testing.T) {
+	type test struct { // 定义test结构体
+		want  int64
+		input []int64
+	}
+	tests := map[string]test{
+		"base":       {want: 3, input: []int64{1, 2, 3}},
+		"negative":   {want: 10, input: []int64{-10, 10, 2, 10}},
+		"one_number": {want: 3, input: []int64{3}},
+		"nil":        {want: 0, input: nil},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := MaxBuiltinInt64(tc.input...)
+			if got != tc.want {
+				t.Errorf(" excepted:%d, got:%d", tc.want, got)
+			}
+
+		})
+	}
+}
+
+func TestMinBuiltinInt64(t *testing.T) {
+	type test struct { // 定义test结构体
+		want  int64
+		input []int64
+	}
+	tests := map[string]test{
+		"base":       {want: 1, input: []int64{1, 2, 3}},
+		"negative":   {want: -10, input: []int64{-10, 10, 2, 10}},
+		"one_number": {want: 3, input: []int64{3}},
+		"nil":        {want: 0, input: nil},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := MinBuiltinInt64(tc.input...)
+			if got != tc.want {
+				t.Errorf(" excepted:%d, got:%d", tc.want, got)
+			}
+
+		})
+	}
+}
