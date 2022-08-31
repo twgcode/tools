@@ -30,6 +30,21 @@ func BuiltinStringSliceRemoveDuplicateValues(strSlice []string) []string {
 	return list
 }
 
+// BuiltinStringSliceDuplicateValue 切片中是否有重复的值
+func BuiltinStringSliceDuplicateValue(strSlice []string) bool {
+	if len(strSlice) == 0 {
+		return false
+	}
+	_map := make(map[string]struct{}, len(strSlice))
+	for _, v := range strSlice {
+		if _, ok := _map[v]; ok {
+			return true
+		}
+		_map[v] = struct{}{}
+	}
+	return false
+}
+
 // BuiltinStringSliceRemoveElement 从切片中移除遇到第一个指定元素
 func BuiltinStringSliceRemoveElement(source []string, element string) ([]string, bool) {
 	if len(source) == 0 {

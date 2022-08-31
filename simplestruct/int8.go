@@ -16,6 +16,21 @@ func BuiltinInt8SliceContains(slice []int8, val int8) (ok bool) {
 	return false
 }
 
+// BuiltinInt8SliceDuplicateValue 切片中是否有重复的值
+func BuiltinInt8SliceDuplicateValue(strSlice []int8) bool {
+	if len(strSlice) == 0 {
+		return false
+	}
+	_map := make(map[int8]struct{}, len(strSlice))
+	for _, v := range strSlice {
+		if _, ok := _map[v]; ok {
+			return true
+		}
+		_map[v] = struct{}{}
+	}
+	return false
+}
+
 // BuiltinInt8SliceRemoveDuplicateValues 对切片进行去重
 func BuiltinInt8SliceRemoveDuplicateValues(slice []int8) []int8 {
 	if len(slice) == 0 {

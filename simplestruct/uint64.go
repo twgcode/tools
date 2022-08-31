@@ -123,6 +123,21 @@ func BuiltinUint64SliceContains(slice []uint64, val uint64) (ok bool) {
 	return false
 }
 
+// BuiltinUint64SliceDuplicateValue 切片中是否有重复的值
+func BuiltinUint64SliceDuplicateValue(strSlice []uint64) bool {
+	if len(strSlice) == 0 {
+		return false
+	}
+	_map := make(map[uint64]struct{}, len(strSlice))
+	for _, v := range strSlice {
+		if _, ok := _map[v]; ok {
+			return true
+		}
+		_map[v] = struct{}{}
+	}
+	return false
+}
+
 // BuiltinUint64SliceRemoveDuplicateValues 对切片进行去重
 func BuiltinUint64SliceRemoveDuplicateValues(slice []uint64) []uint64 {
 	if len(slice) == 0 {

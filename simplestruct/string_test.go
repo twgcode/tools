@@ -62,3 +62,28 @@ func TestBuiltinStringSliceRemoveElement(t *testing.T) {
 		})
 	}
 }
+
+func TestBuiltinStringSliceDuplicateValues(t *testing.T) {
+	type test struct {
+		input []string
+
+		want bool
+	}
+	tests := map[string]test{
+		"nil":              {nil, false},
+		"empty":            {[]string{}, false},
+		"simple":           {[]string{"a", "b", "c", "a"}, true},
+		"not_exist_simple": {[]string{"a", "b", "c"}, false},
+		"zh":               {[]string{"中午", "是个", "好的", "a", "好的"}, true},
+		"not_exist_zh":     {[]string{"中午", "是个", "好的", "a"}, false},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := BuiltinStringSliceDuplicateValue(tc.input)
+			if !reflect.DeepEqual(got, tc.want) {
+				t.Errorf("excepted :%t, got:%t,", tc.want, got)
+				return
+			}
+		})
+	}
+}
