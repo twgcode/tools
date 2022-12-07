@@ -1,0 +1,1 @@
+对 sqlx `types.NullJSONText` 等数据结构提供一些便利的函数等
