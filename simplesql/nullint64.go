@@ -65,3 +65,14 @@ func (n NullInt64) MarshalJSON() (data []byte, err error) {
 	}
 
 }
+
+// NewNullInt64FromInt64Ptr 根据  *int64 创建 sql.NullInt64
+func NewNullInt64FromInt64Ptr(source *int64) (result sql.NullInt64) {
+	if source == nil {
+		result.Valid = false
+		return
+	}
+	result.Valid = true
+	result.Int64 = *source
+	return
+}

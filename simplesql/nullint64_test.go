@@ -7,6 +7,7 @@
 package simplesql
 
 import (
+	"database/sql"
 	"encoding/json"
 	"reflect"
 	"testing"
@@ -55,6 +56,27 @@ func TestNullInt64_UnmarshalJSON(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tc.want) {
 				t.Errorf("name:%s excepted:%v, got:%v", name, tc.want, got) // 将测试用例的name格式化输出
+				return
+			}
+		})
+	}
+}
+
+func TestNewNullInt64FromInt32Ptr(t *testing.T) {
+	type test struct {
+		input *int64
+		want  sql.NullInt64
+	}
+	var normal int64 = 10
+	tests := map[string]test{
+		"null":   {nil, sql.NullInt64{Int64: 0, Valid: false}},
+		"normal": {&normal, sql.NullInt64{Int64: 10, Valid: true}},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := NewNullInt64FromInt64Ptr(tc.input)
+			if !reflect.DeepEqual(got, tc.want) {
+				t.Errorf("excepted:%v, got:%v", tc.want, got) // 将测试用例的name格式化输出
 				return
 			}
 		})
