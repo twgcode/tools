@@ -8,6 +8,7 @@
 package simplestruct
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -34,4 +35,32 @@ func TestPtrStringValue(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestPtrSliceStringValue(t *testing.T) {
+	type test struct { // 定义test结构体
+		want  []string
+		input []*string
+		flag  bool
+	}
+	a := "a"
+	b := "b"
+	tests := map[string]test{
+		"nil":                {[]string{}, nil, true},
+		"nil_false":          {[]string{}, nil, false},
+		"empty":              {[]string{}, []*string{}, true},
+		"empty_false":        {[]string{}, []*string{}, false},
+		"contains nil":       {[]string{"a", "b"}, []*string{&a, nil, &b}, true},
+		"contains nil false": {[]string{"a", "", "b"}, []*string{&a, nil, &b}, true},
+	}
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := PtrSliceStringValue(tc.input, tc.flag)
+			if !reflect.DeepEqual(tc.want, got) {
+				t.Errorf("excepted: %s, got: %s", tc.want, got)
+			}
+
+		})
+	}
+
 }

@@ -167,32 +167,22 @@ func PtrStringValue(a *string) string {
 	return PtrStringDefaultValue(a, "")
 }
 
-/*
-Invalid Kind = iota
-	Bool
-	Int
-	Int8
-	Int16
-	Int32
-	Int64
-	Uint
-	Uint8
-	Uint16
-	Uint32
-	Uint64
-	Uintptr
-	Float32
-	Float64
-	Complex64
-	Complex128
-	Array
-	Chan
-	Func
-	Interface
-	Map
-	Ptr
-	Slice
-	String
-	Struct
-	UnsafePointer
-*/
+func PtrSliceStringValue(a []*string, removeNil bool) []string {
+	result := make([]string, 0, len(a))
+	if removeNil {
+		for i := range a {
+			if a[i] != nil {
+				result = append(result, *a[i])
+			}
+		}
+		return result
+	}
+
+	for i := range a {
+		if a[i] != nil {
+			result = append(result, PtrStringDefaultValue(a[i], ""))
+		}
+	}
+
+	return result
+}
