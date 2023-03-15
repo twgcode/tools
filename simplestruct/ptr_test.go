@@ -64,3 +64,46 @@ func TestPtrSliceStringValue(t *testing.T) {
 	}
 
 }
+
+func TestInt32PtrDeepCopy(t *testing.T) {
+	type test struct { // 定义test结构体
+		input *int32
+	}
+	var nilInput *int32 = nil
+
+	var input1 int32 = 1
+
+	tests := map[string]test{
+		"nil": {nilInput},
+		"1":   {&input1},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			got := Int32PtrDeepCopy(tc.input)
+			if tc.input == nil {
+				if got != nil {
+					t.Errorf("excepted value: nil, got value: %d", *got)
+					return
+				}
+				t.Logf("input nil, got nil")
+			} else {
+				if got == nil {
+					t.Errorf("excepted value: %d, ptr %p, got value: nil", *tc.input, tc.input)
+					return
+				}
+				if *tc.input != *got {
+					t.Errorf("excepted value: %d, ptr %p, got value: %d, ptr: %p", *tc.input, tc.input, *got, got)
+					return
+				}
+				if tc.input == got {
+					t.Errorf("input ptr equal got ptr, excepted value: %d, ptr %p, got value: %d, ptr: %p", *tc.input, tc.input, *got, got)
+					return
+				}
+				t.Logf("input ptr not equal got ptr, input value: %d, ptr %p, got value: %d, ptr: %p", *tc.input, tc.input, *got, got)
+			}
+
+		})
+	}
+
+}

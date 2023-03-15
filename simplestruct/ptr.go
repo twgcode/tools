@@ -240,3 +240,123 @@ func Complex128Ptr(v complex128) *complex128 {
 func StringPtr(v string) *string {
 	return &v
 }
+
+// 指针 深度复制
+
+func BoolPtrDeepCopy(a *bool) *bool {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+
+func IntPtrDeepCopy(a *int) *int {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Int8PtrDeepCopy(a *int8) *int8 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Int16PtrDeepCopy(a *int16) *int16 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Int32PtrDeepCopy(a *int32) *int32 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Int64PtrDeepCopy(a *int64) *int64 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+
+func UintPtrDeepCopy(a *uint) *uint {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Uint8PtrDeepCopy(a *uint8) *uint8 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Uint16PtrDeepCopy(a *uint16) *uint16 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Uint32PtrDeepCopy(a *uint32) *uint32 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Uint64PtrDeepCopy(a *uint64) *uint64 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+
+func Float32PtrDeepCopy(a *float32) *float32 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Float64PtrDeepCopy(a *float64) *float64 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+
+func Complex64PtrDeepCopy(a *complex64) *complex64 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+func Complex128PtrDeepCopy(a *complex128) *complex128 {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
+
+func StringPtrDeepCopy(a *string) *string {
+	if a == nil {
+		return nil
+	}
+	tmp := *a
+	return &tmp
+}
