@@ -8,6 +8,7 @@
 package buffer
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -46,5 +47,23 @@ func TestCircularBuffer_Size(t *testing.T) {
 	// Ensure that the buffer size is correct
 	if result != expected {
 		t.Errorf("Size: expected %d, got %d", expected, result)
+	}
+}
+
+func TestCircularBuffer_Reset(t *testing.T) {
+	cb := NewCircularBuffer(5)
+	data1 := []byte("Hello")
+	data2 := []byte("Wor1")
+	expected := []byte("Wor1")
+
+	cb.Write(data1)
+	cb.Reset()
+	cb.Write(data2)
+	result := cb.Read()
+
+	fmt.Println(cb.String())
+	// Ensure that only the latest data is read after reset and write
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Reset: expected %v, got %v", expected, result)
 	}
 }

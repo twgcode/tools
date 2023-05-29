@@ -76,6 +76,16 @@ func (c *CircularBuffer) Size() int {
 	return len(c.buffer)
 }
 
+// Reset 重置缓冲区
+func (c *CircularBuffer) Reset() {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+
+	c.start = 0
+	c.size = 0
+	// 没有重新 c.buffer 是为了 节省内存和提高效率
+}
+
 func (c *CircularBuffer) String() string {
 	return string(c.Read())
 }
