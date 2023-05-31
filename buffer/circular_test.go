@@ -37,12 +37,12 @@ func TestCircularBuffer_WriteRead(t *testing.T) {
 	}
 }
 
-func TestCircularBuffer_Size(t *testing.T) {
+func TestCircularBuffer_Cap(t *testing.T) {
 	bufferSize := 10
 	cb := NewCircularBuffer(bufferSize)
 	expected := bufferSize
 
-	result := cb.Size()
+	result := cb.Cap()
 
 	// Ensure that the buffer size is correct
 	if result != expected {
@@ -65,5 +65,34 @@ func TestCircularBuffer_Reset(t *testing.T) {
 	// Ensure that only the latest data is read after reset and write
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("Reset: expected %v, got %v", expected, result)
+	}
+}
+
+func TestCircularBuffer_WriteAndGetLen(t *testing.T) {
+	cb := NewCircularBuffer(5)
+	data := []byte("Hello")
+	expectedLen := len(data)
+
+	cb.Write(data)
+	resultLen := cb.Len()
+
+	if resultLen != expectedLen {
+		t.Errorf("WriteAndGetLen: expected length %d, got %d", expectedLen, resultLen)
+	}
+}
+
+func TestCircularBuffer_ResetAndWriteAndGetLen(t *testing.T) {
+	cb := NewCircularBuffer(5)
+	data1 := []byte("Hello")
+	data2 := []byte("Wor1")
+	expectedLen := len(data2)
+
+	cb.Write(data1)
+	cb.Reset()
+	cb.Write(data2)
+	resultLen := cb.Len()
+
+	if resultLen != expectedLen {
+		t.Errorf("ResetAndWriteAndGetLen: expected length %d, got %d", expectedLen, resultLen)
 	}
 }

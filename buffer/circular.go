@@ -70,7 +70,8 @@ func (c *CircularBuffer) Read() []byte {
 	return data
 }
 
-func (c *CircularBuffer) Size() int {
+// Cap 获取底层字节切片的容量大小
+func (c *CircularBuffer) Cap() int {
 	c.lock.RLock()
 	defer c.lock.RUnlock()
 	return len(c.buffer)
@@ -88,4 +89,12 @@ func (c *CircularBuffer) Reset() {
 
 func (c *CircularBuffer) String() string {
 	return string(c.Read())
+}
+
+// Len 当前 缓冲区有效数据的大小
+func (c *CircularBuffer) Len() int {
+	c.lock.RLock()
+	defer c.lock.RUnlock()
+
+	return c.size
 }
