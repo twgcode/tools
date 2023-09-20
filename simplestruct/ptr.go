@@ -7,6 +7,8 @@
 
 package simplestruct
 
+import "time"
+
 func PtrBoolDefaultValue(a *bool, defaultValue bool) bool {
 	if a == nil {
 		return defaultValue
@@ -187,6 +189,16 @@ func PtrSliceStringValue(a []*string, removeNil bool) []string {
 	return result
 }
 
+func PtrTimeDefaultValue(a *time.Time, defaultValue time.Time) time.Time {
+	if a == nil {
+		return defaultValue
+	}
+	return *a
+}
+func PtrTimeValue(a *time.Time) time.Time {
+	return PtrTimeDefaultValue(a, time.Now())
+}
+
 func BoolPtr(v bool) *bool {
 	return &v
 }
@@ -238,6 +250,10 @@ func Complex128Ptr(v complex128) *complex128 {
 }
 
 func StringPtr(v string) *string {
+	return &v
+}
+
+func TimePtr(v time.Time) *time.Time {
 	return &v
 }
 
